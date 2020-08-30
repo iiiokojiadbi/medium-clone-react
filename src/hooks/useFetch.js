@@ -14,7 +14,7 @@ export default (url) => {
 
   useEffect(() => {
     if (isLoading) {
-      fetch(`${baseUrl}${url}`, options)
+      fetch(baseUrl + url, options)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -22,12 +22,11 @@ export default (url) => {
           setIsLoading(false);
         })
         .catch((err) => {
-          console.log(err);
           setError(err);
           setIsLoading(false);
         });
     }
-  }, [isLoading]);
+  }, [isLoading, options, url]);
 
   return [
     {
