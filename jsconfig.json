@@ -6,7 +6,8 @@
       "pages": ["./pages"],
       "routes": ["./routes.js"],
       "blocks": ["./blocks"],
-      "hooks": ["./hooks"]
+      "hooks": ["./hooks"],
+      "context": ["./context"]
     }
   }
 }
