@@ -31,6 +31,8 @@
   }
 
   &__set {
+    display: grid;
+    gap: 20px;
     border: none;
     margin: 0;
     padding: 0;
