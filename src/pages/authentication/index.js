@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import useFetch from 'hooks/useFetch';
@@ -8,38 +8,21 @@ import 'blocks/auth.scss';
 export const Authentication = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [{isLoading, response, error}, doFetch] = useFetch('login');
+  const [{isLoading, response, error}, doFetch] = useFetch('/users/login');
 
   console.log('das', isLoading, response, error);
 
-  useEffect(() => {
-    if (isSubmitting) {
-      fetch('https://conduit.productionready.io/api/users/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          users: {
-            email,
-            password,
-          },
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setIsSubmitting(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsSubmitting(false);
-        });
-    }
-  });
-
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(email, password);
-    setIsSubmitting(true);
+    doFetch({
+      method: 'POST',
+      body: JSON.stringify({
+        users: {
+          email: 'Dwadw@dwwadaw.com',
+          password: 'dwadwadw',
+        },
+      }),
+    });
   };
 
   return (
@@ -70,7 +53,7 @@ export const Authentication = () => {
               required
             />
           </fieldset>
-          <button type='submit' className='auth__btn' disabled={isSubmitting}>
+          <button type='submit' className='auth__btn' disabled={isLoading}>
             Sign in
           </button>
         </form>
