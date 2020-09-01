@@ -6,16 +6,19 @@ import 'blocks/main.scss';
 
 import {Header} from 'components';
 import {CurrentUserProvider} from 'context/CurrentUserContext';
+import {CurrentUserChecker} from './CurrentUserChecker';
 
 export const App = () => {
   return (
     <CurrentUserProvider>
-      <BrowserRouter>
-        <Header />
-        <div className='main'>
-          <Routes />
-        </div>
-      </BrowserRouter>
+      <CurrentUserChecker>
+        <BrowserRouter>
+          <Header />
+          <div className='main'>
+            <Routes />
+          </div>
+        </BrowserRouter>
+      </CurrentUserChecker>
     </CurrentUserProvider>
   );
 };
