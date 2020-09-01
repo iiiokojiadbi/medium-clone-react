@@ -1,5 +1,4 @@
-import {useState, useEffect} from 'react';
-import useLocalStorage from './useLocalStorage';
+import {useState, useEffect, useCallback} from 'react';
 
 export default (url) => {
   const baseUrl = 'https://conduit.productionready.io/api';
@@ -7,24 +6,15 @@ export default (url) => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [options, setOptions] = useState({});
-  const [token] = useLocalStorage('token');
 
-  const doFetch = (options = {}) => {
+  const doFetch = useCallback((options = {}) => {
     setOptions(options);
     setIsLoading(true);
-  };
+  }, []);
 
   useEffect(() => {
-    const requestOptinons = {
-      method: options.method,
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: token ? `Token ${token}` : '',
-      },
-      body: options.body ? options.body : '',
-    };
     if (isLoading) {
-      fetch(baseUrl + url, requestOptinons)
+      fetch(baseUrl + url, options)
         .then((response) =>
           response.json().then((data) => ({status: response.status, data}))
         )
