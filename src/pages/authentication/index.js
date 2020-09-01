@@ -28,6 +28,8 @@ export const Authentication = (props) => {
     CurrentUserContext
   );
 
+  console.log(currentUserState);
+
   const submitHandler = (event) => {
     event.preventDefault();
     const user = isLogin
@@ -39,9 +41,6 @@ export const Authentication = (props) => {
 
     doFetch({
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({user}),
     });
   };
