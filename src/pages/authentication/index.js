@@ -28,11 +28,8 @@ export const Authentication = (props) => {
     CurrentUserContext
   );
 
-  console.log(currentUserState);
-
   const submitHandler = (event) => {
     event.preventDefault();
-
     const user = isLogin
       ? {
           email,
@@ -50,17 +47,18 @@ export const Authentication = (props) => {
   };
 
   useEffect(() => {
-    if (response) {
-      setToken(response.user.token);
-      setIsSuccessSubmit(true);
-      setCurrentUserState((prevState) => ({
-        ...prevState,
-        isLoggedIn: true,
-        isLoading: false,
-        currentUser: response.user,
-      }));
+    if (!response) {
+      return;
     }
-  }, [response, setToken]);
+    setToken(response.user.token);
+    setIsSuccessSubmit(true);
+    setCurrentUserState((prevState) => ({
+      ...prevState,
+      isLoggedIn: true,
+      isLoading: false,
+      currentUser: response.user,
+    }));
+  }, [response, setToken, setCurrentUserState]);
 
   if (isSuccessSubmit) {
     return <Redirect to='/' />;
@@ -84,7 +82,6 @@ export const Authentication = (props) => {
                   placeholder='Username'
                   value={username}
                   onChange={(event) => setUsername(event.target.value)}
-                  required
                 />
               </fieldset>
             )}
