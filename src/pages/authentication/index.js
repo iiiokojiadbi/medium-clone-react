@@ -1,8 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 
 import useFetch from 'hooks/useFetch';
 import useLocalStorage from 'hooks/useLocalStorage';
+
+import {BackendErrorMessages} from 'pages/authentication/components/BackendErrorMessages';
+import {CurrentUserContext} from 'context/CurrentUserContext';
 
 import 'blocks/auth.scss';
 
@@ -17,8 +20,15 @@ export const Authentication = (props) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [isSuccessSubmit, setIsSuccessSubmit] = useState(false);
-  const [{isLoading, response}, doFetch] = useFetch(apiUrl);
+
+  const [{isLoading, response, error}, doFetch] = useFetch(apiUrl);
   const [token, setToken] = useLocalStorage('token');
+
+  const [currentUserState, setCurrentUserState] = useContext(
+    CurrentUserContext
+  );
+
+  console.log(currentUserState);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -43,6 +53,12 @@ export const Authentication = (props) => {
     if (response) {
       setToken(response.user.token);
       setIsSuccessSubmit(true);
+      setCurrentUserState((prevState) => ({
+        ...prevState,
+        isLoggedIn: true,
+        isLoading: false,
+        currentUser: response.user,
+      }));
     }
   }, [response, setToken]);
 
@@ -58,41 +74,42 @@ export const Authentication = (props) => {
           {descriptionText}
         </Link>
         <form className='auth__form' onSubmit={submitHandler}>
-          {!isLogin && (
+          {error && <BackendErrorMessages backendErrors={error.errors} />}
+          <div className='auth__set-group'>
+            {!isLogin && (
+              <fieldset className='auth__set'>
+                <input
+                  className='auth__input'
+                  type='text'
+                  placeholder='Username'
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                  required
+                />
+              </fieldset>
+            )}
             <fieldset className='auth__set'>
               <input
                 className='auth__input'
-                type='text'
-                placeholder='Username'
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                required
+                type='email'
+                placeholder='Email'
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
             </fieldset>
-          )}
-          <fieldset className='auth__set'>
-            <input
-              className='auth__input'
-              type='email'
-              placeholder='Email'
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </fieldset>
-          <fieldset className='auth__set'>
-            <input
-              className='auth__input'
-              type='password'
-              placeholder='Password'
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-          </fieldset>
-          <button type='submit' className='auth__btn' disabled={isLoading}>
-            {pageTitle}
-          </button>
+            <fieldset className='auth__set'>
+              <input
+                className='auth__input'
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </fieldset>
+            <button type='submit' className='auth__btn' disabled={isLoading}>
+              {pageTitle}
+            </button>
+          </div>
         </form>
       </div>
     </div>
