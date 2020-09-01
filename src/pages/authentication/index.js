@@ -22,7 +22,7 @@ export const Authentication = (props) => {
   const [isSuccessSubmit, setIsSuccessSubmit] = useState(false);
 
   const [{isLoading, response, error}, doFetch] = useFetch(apiUrl);
-  const [token, setToken] = useLocalStorage('token');
+  const [, setToken] = useLocalStorage('token');
 
   const [currentUserState, setCurrentUserState] = useContext(
     CurrentUserContext
@@ -41,6 +41,9 @@ export const Authentication = (props) => {
 
     doFetch({
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({user}),
     });
   };
