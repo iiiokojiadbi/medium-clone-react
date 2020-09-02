@@ -1,0 +1,25 @@
+.sidebar {
+  background-color: rgba($color: gray, $alpha: 0.2);
+  padding: 10px;
+  border-radius: 10px;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__title {
+    margin: 0 0 20px 0;
+    font-weight: bold;
+  }
+
+  &__item-list {
+    background-color: gray;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+    text-decoration-line: none;
+  }
+}
