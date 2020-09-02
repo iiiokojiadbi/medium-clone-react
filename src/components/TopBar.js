@@ -10,7 +10,7 @@ export const TopBar = () => {
     <nav className='top-bar'>
       <div className='top-bar__wrapper'>
         <Link className='top-bar__link top-bar__link_logo' to='/'>
-          Medium
+          <h2 className='top-bar__logo'>Medium</h2>
         </Link>
         <ul className='top-bar__list'>
           <li className='top-bar__item-list'>
