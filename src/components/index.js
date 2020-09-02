@@ -4,5 +4,18 @@ import {TopBar} from 'components/TopBar';
 import {CurrentUserChecker} from 'components/CurrentUserChecker';
 import {Feed} from 'components/Feed';
 import {Pagination} from './Pagination';
+import {PopularTags} from './PopularTags';
+import {Loading} from './Loading';
+import {ErrorMessage} from './ErrorMessage';
 
-export {App, Header, TopBar, CurrentUserChecker, Feed, Pagination};
+export {
+  App,
+  Header,
+  TopBar,
+  CurrentUserChecker,
+  Feed,
+  Pagination,
+  PopularTags,
+  Loading,
+  ErrorMessage,
+};
