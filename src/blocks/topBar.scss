@@ -4,12 +4,14 @@
   &__wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content;
+    align-items: center;
   }
 
   &__list {
+    justify-self: end;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -17,9 +19,18 @@
     gap: 30px;
   }
 
+  &__logo {
+    line-height: auto;
+    font-size: 36px;
+    color: green;
+    padding: 0;
+    margin: 0;
+  }
+
   &__link {
     text-decoration-line: none;
     font-size: 24px;
+    line-height: auto;
     color: gray;
     text-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 1);
 
@@ -28,8 +39,7 @@
     }
 
     &_logo {
-      font-size: 36px;
-      color: green;
+      justify-self: start;
     }
   }
 }
