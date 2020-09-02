@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import useFetch from 'hooks/useFetch';
-import {Feed} from 'components';
+import {Feed, Pagination} from 'components';
 
 import 'blocks/banner.scss';
 import 'blocks/homePage.scss';
@@ -28,7 +28,12 @@ export const GlobalFeed = () => {
         <div className='home-page__main'>
           {isLoading && <div>Loading...</div>}
           {error && <div>Some error happened</div>}
-          {!isLoading && response && <Feed articles={response.articles} />}
+          {!isLoading && response && (
+            <>
+              <Feed articles={response.articles} />
+              <Pagination total={500} limit={10} url='/' currentPage={2} />
+            </>
+          )}
         </div>
         <div className='home-page__tags'>Popular tags</div>
       </div>

@@ -1,0 +1,42 @@
+.pagination {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+
+  &__item {
+    width: 30px;
+    height: 30px;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-decoration-line: none;
+    color: green;
+    width: 30px;
+    height: 30px;
+    border: 1px solid gray;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: rgba($color: gray, $alpha: 0.2);
+    }
+  }
+
+  &__link_active {
+    color: white;
+    font-weight: bold;
+    background-color: green;
+
+    &:hover {
+      background-color: green;
+    }
+  }
+}
