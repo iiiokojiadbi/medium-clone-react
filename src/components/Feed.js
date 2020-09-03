@@ -31,7 +31,7 @@ export const Feed = ({articles}) => {
           </div>
           <Link
             className='article__link article__link_post'
-            to={`/articles/${articles.slug}`}
+            to={`/articles/${article.slug}`}
           >
             <h2>{article.title}</h2>
             <p>{article.description}</p>
