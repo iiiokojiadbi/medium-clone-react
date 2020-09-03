@@ -8,6 +8,7 @@ import {
   YourFeed,
   CreateArticle,
   EditArticle,
+  Settings,
 } from 'pages';
 
 export default () => {
@@ -19,6 +20,7 @@ export default () => {
       <Route path='/feed' component={YourFeed} />
       <Route path='/tags/:slug' component={TagFeed} />
       <Route path='/login' component={Authentication} />
+      <Route path='/settings' component={Settings} />
       <Route path='/register' component={Authentication} />
       <Route path='/articles/:slug' component={Article} />
     </Switch>
