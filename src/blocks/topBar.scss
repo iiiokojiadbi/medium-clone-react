@@ -19,6 +19,9 @@
     gap: 30px;
   }
 
+  &__item-list {
+  }
+
   &__logo {
     line-height: auto;
     font-size: 36px;
@@ -27,10 +30,15 @@
     margin: 0;
   }
 
+  &__image {
+    width: 20px;
+    object-fit: cover;
+    object-position: center;
+  }
+
   &__link {
     text-decoration-line: none;
     font-size: 24px;
-    line-height: auto;
     color: gray;
     text-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 1);
 

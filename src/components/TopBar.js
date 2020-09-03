@@ -60,9 +60,18 @@ export const TopBar = () => {
                 <NavLink
                   className='top-bar__link'
                   activeClassName='top-bar__link_active'
+                  to='/settings'
+                >
+                  Settings
+                </NavLink>
+              </li>
+              <li className='top-bar__item-list'>
+                <NavLink
+                  className='top-bar__link'
+                  activeClassName='top-bar__link_active'
                   to={`/profiles/${currentUserState.currentUser.username}`}
                 >
-                  <img src={currentUserState.currentUser.image} alt='' />
+                  <img className="top-bar__image" src={currentUserState.currentUser.image} alt='' />
                   {currentUserState.currentUser.username}
                 </NavLink>
               </li>
