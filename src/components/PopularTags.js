@@ -16,9 +16,8 @@ export const PopularTags = ({optionalClasses}) => {
       },
     });
   }, [doFetch]);
-  console.log(response === null);
 
-  if (response == null || isLoading) {
+  if (isLoading || !response) {
     return <Loading />;
   }
 
