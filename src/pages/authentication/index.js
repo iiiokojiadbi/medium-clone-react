@@ -24,11 +24,7 @@ export const Authentication = (props) => {
   const [{isLoading, response, error}, doFetch] = useFetch(apiUrl);
   const [, setToken] = useLocalStorage('token');
 
-  const [currentUserState, setCurrentUserState] = useContext(
-    CurrentUserContext
-  );
-
-  console.log(currentUserState);
+  const [, dispatch] = useContext(CurrentUserContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -54,13 +50,8 @@ export const Authentication = (props) => {
     }
     setToken(response.user.token);
     setIsSuccessSubmit(true);
-    setCurrentUserState((prevState) => ({
-      ...prevState,
-      isLoggedIn: true,
-      isLoading: false,
-      currentUser: response.user,
-    }));
-  }, [response, setToken, setCurrentUserState]);
+    dispatch({type: 'SET_AUTHORIZED', payload: response.user});
+  }, [response, setToken, dispatch]);
 
   if (isSuccessSubmit) {
     return <Redirect to='/' />;
