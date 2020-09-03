@@ -32,7 +32,7 @@ export const FeedToggler = ({tagName}) => {
               className='feed-toggler__link'
               activeClassName='feed-toggler__link_active feed-toggler__item-list_active'
             >
-              {tagName}
+              #{tagName}
             </NavLink>
           </li>
         )}
