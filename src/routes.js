@@ -1,11 +1,12 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import {GlobalFeed, Article, Authentication, TagFeed} from 'pages';
+import {GlobalFeed, Article, Authentication, TagFeed, YourFeed} from 'pages';
 
 export default () => {
   return (
     <Switch>
       <Route exact path='/' component={GlobalFeed} />
+      <Route path='/feed' component={YourFeed} />
       <Route path='/tags/:slug' component={TagFeed} />
       <Route path='/login' component={Authentication} />
       <Route path='/register' component={Authentication} />
