@@ -9,8 +9,6 @@ export const TagList = ({tags, optionalClasses}) => {
     'tag-list_block': !tags.length,
   });
 
-  console.log(listClasses);
-
   return (
     <ul className={listClasses}>
       {tags.map((tag) => {
