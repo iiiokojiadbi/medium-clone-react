@@ -8,7 +8,7 @@ import {CurrentUserContext} from 'context/CurrentUserContext';
 
 export const CreateArticle = () => {
   const apiUrl = '/articles';
-  const [{response, error}, doFetch] = useFetch(apiUrl);
+  const [{response, isLoading, error}, doFetch] = useFetch(apiUrl);
   const [token] = useLocalStorage('token');
   const [currentUserContext] = useContext(CurrentUserContext);
 
@@ -54,6 +54,7 @@ export const CreateArticle = () => {
         onSubmit={handleSubmit}
         initialValues={initialValues}
         errors={(error && error.errors) || {}}
+        isLoading={isLoading}
       />
     </div>
   );

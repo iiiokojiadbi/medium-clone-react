@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import {BackendErrorMessages} from 'components';
 
-export const ArticleForm = ({onSubmit, errors, initialValues}) => {
+export const ArticleForm = ({onSubmit, errors, initialValues, isLoading}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
@@ -17,7 +17,6 @@ export const ArticleForm = ({onSubmit, errors, initialValues}) => {
       body,
       tagList: tagList.split(' '),
     };
-
 
     onSubmit(article);
   };
@@ -73,7 +72,9 @@ export const ArticleForm = ({onSubmit, errors, initialValues}) => {
                   />
                 </fieldset>
                 <fieldset>
-                  <button type='submit'>Publish Article</button>
+                  <button type='submit' disabled={isLoading}>
+                    Publish Article
+                  </button>
                 </fieldset>
               </fieldset>
             </form>

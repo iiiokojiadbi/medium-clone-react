@@ -7,7 +7,6 @@ export const Article = ({match}) => {
   const slug = match.params.slug;
   const apiUrl = `/articles/${slug}`;
   const [{response, error, isLoading}, doFetch] = useFetch(apiUrl);
-  console.log(slug);
 
   useEffect(() => {
     doFetch({
