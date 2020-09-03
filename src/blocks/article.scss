@@ -35,7 +35,7 @@
       grid-template-areas:
         'title title'
         'text text'
-        'more tags';
+        'more more';
 
       & h2 {
         grid-area: title;
@@ -50,8 +50,9 @@
       }
 
       & ul {
-        grid-area: tags;
+        grid-area: more;
         justify-self: end;
+        max-width: 33%;
       }
     }
 
