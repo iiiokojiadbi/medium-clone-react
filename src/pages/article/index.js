@@ -1,61 +1,122 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import useFetch from 'hooks/useFetch';
-import {Link} from 'react-router-dom';
-import {Loading, ErrorMessage, TagList} from 'components';
+import {Link, Redirect} from 'react-router-dom';
+import {Loading, TagList, ErrorMessage} from 'components';
+import {CurrentUserContext} from 'context/CurrentUserContext';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 export const Article = ({match}) => {
   const slug = match.params.slug;
   const apiUrl = `/articles/${slug}`;
-  const [{response, error, isLoading}, doFetch] = useFetch(apiUrl);
+  const [
+    {
+      response: responseArticleFetch,
+      error: errorArticle,
+      isLoading: isLoadingArticle,
+    },
+    doFetchArticle,
+  ] = useFetch(apiUrl);
+  const [{response: responseArticleDelete}, doDeleteArticle] = useFetch(apiUrl);
+  const [currentUserState] = useContext(CurrentUserContext);
+  const [token] = useLocalStorage('token');
+  const [isSuccessDelete, setIsSuccessDelete] = useState(false);
+
+  const isAuthor = () => {
+    if (!responseArticleFetch || !currentUserState.isLoggedIn) {
+      return false;
+    }
+
+    return (
+      responseArticleFetch.article.author.username ===
+      currentUserState.currentUser.username
+    );
+  };
 
   useEffect(() => {
-    doFetch({
+    doFetchArticle({
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Token ${token}`,
       },
     });
-  }, [doFetch]);
+  }, [doFetchArticle, token]);
+
+  useEffect(() => {
+    if (!responseArticleDelete) {
+      return;
+    }
+
+    setIsSuccessDelete(true);
+  }, [responseArticleDelete]);
+
+  const handleDeleteArticle = () => {
+    doDeleteArticle({
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Token ${token}`,
+      },
+    });
+  };
+
+  if (isSuccessDelete) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <div className='article-page'>
       <div className='banner'>
-        {!isLoading && response && (
+        {!isLoadingArticle && responseArticleFetch && (
           <>
-            <h1 className='banner__title'>{response.article.title}</h1>
+            <h1 className='banner__title'>
+              {responseArticleFetch.article.title}
+            </h1>
             <div className='article__meta banner__desc'>
               <Link
                 className='article__link article__link_image'
-                to={`/profiles/${response.article.author.username}`}
+                to={`/profiles/${responseArticleFetch.article.author.username}`}
               >
                 <img
                   className='article__image'
-                  src={response.article.author.image}
+                  src={responseArticleFetch.article.author.image}
                   alt=''
                 />
               </Link>
               <Link
                 className='article__link article__link_name'
-                to={`/profiles/${response.article.author.username}`}
+                to={`/profiles/${responseArticleFetch.article.author.username}`}
               >
-                {response.article.author.username}
+                {responseArticleFetch.article.author.username}
               </Link>
               <span className='article__date'>
-                {response.article.createdAt}
+                {responseArticleFetch.article.createdAt}
               </span>
             </div>
+            {isAuthor() && (
+              <>
+                <span>
+                  <Link
+                    to={`/articles/${responseArticleFetch.article.slug}/edit`}
+                  >
+                    Edit post
+                  </Link>
+                </span>
+                <button onClick={handleDeleteArticle}>Delete post</button>
+              </>
+            )}
           </>
         )}
       </div>
       <div className='article-page__main'>
-        {isLoading && <Loading />}
-        {error && <ErrorMessage />}
-        {!isLoading && response && (
+        {isLoadingArticle && <Loading />}
+        {errorArticle && <ErrorMessage />}
+        {!isLoadingArticle && responseArticleFetch && (
           <>
             <div>
-              <p>{response.article.body}</p>
+              <p>{responseArticleFetch.article.body}</p>
             </div>
-            <TagList tags={response.article.tagList} />
+            <TagList tags={responseArticleFetch.article.tagList} />
           </>
         )}
       </div>
