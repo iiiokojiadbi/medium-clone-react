@@ -7,6 +7,7 @@ import {Pagination} from './Pagination';
 import {PopularTags} from './PopularTags';
 import {Loading} from './Loading';
 import {ErrorMessage} from './ErrorMessage';
+import {FeedToggler} from './FeedToggler';
 
 export {
   App,
@@ -18,4 +19,5 @@ export {
   PopularTags,
   Loading,
   ErrorMessage,
+  FeedToggler,
 };

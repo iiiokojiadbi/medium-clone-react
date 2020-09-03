@@ -1,0 +1,32 @@
+.feed-toggler {
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item-list {
+    list-style-type: none;
+  }
+
+  &__link {
+    display: grid;
+    color: rgba($color: gray, $alpha: 1);
+    text-decoration-line: none;
+    border-top: 1px solid rgba($color: gray, $alpha: 0.4);
+    padding: 5px 20px;
+    margin-bottom: -1px;
+    z-index: 1;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: rgba($color: gray, $alpha: 0.1);
+    }
+
+    &_active {
+      color: rgba($color: green, $alpha: 1);
+      border-top: 1px solid green;
+      background-color: rgba($color: gray, $alpha: 0.3);
+    }
+  }
+}

@@ -1,6 +1,13 @@
 import React, {useEffect} from 'react';
 import useFetch from 'hooks/useFetch';
-import {Feed, Pagination, PopularTags, ErrorMessage, Loading} from 'components';
+import {
+  Feed,
+  Pagination,
+  PopularTags,
+  ErrorMessage,
+  Loading,
+  FeedToggler,
+} from 'components';
 import {getPaginator, limit} from 'utils';
 import {stringify} from 'query-string';
 import 'blocks/banner.scss';
@@ -33,6 +40,7 @@ export const GlobalFeed = ({location, match}) => {
       </div>
       <div className='home-page__container'>
         <div className='home-page__main'>
+          <FeedToggler />
           {isLoading && <Loading />}
           {error && <ErrorMessage />}
           {!isLoading && response && (
