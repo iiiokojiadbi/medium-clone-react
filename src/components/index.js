@@ -8,6 +8,7 @@ import {PopularTags} from './PopularTags';
 import {Loading} from './Loading';
 import {ErrorMessage} from './ErrorMessage';
 import {FeedToggler} from './FeedToggler';
+import {TagList} from './TagList';
 
 export {
   App,
@@ -20,4 +21,5 @@ export {
   Loading,
   ErrorMessage,
   FeedToggler,
+  TagList,
 };

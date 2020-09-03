@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {TagList} from './TagList';
 
 import 'blocks/feed.scss';
 import 'blocks/article.scss';
@@ -28,15 +29,17 @@ export const Feed = ({articles}) => {
             </Link>
             <span className='article__date'>{article.createdAt}</span>
           </div>
-          <Link className='article__link' to={`/articles/${articles.slug}`}>
+          <Link
+            className='article__link article__link_post'
+            to={`/articles/${articles.slug}`}
+          >
             <h2>{article.title}</h2>
             <p>{article.description}</p>
             <span>Read more...</span>
-            <ul className='tag-list'>
-              {article.tagList.map((tag) => (
-                <li key={tag}>{tag}</li>
-              ))}
-            </ul>
+            <TagList
+              tags={article.tagList}
+              optionalClasses='article__tag-list'
+            />
           </Link>
         </div>
       ))}

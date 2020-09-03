@@ -1,0 +1,16 @@
+.tag-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 5px;
+
+  &__item-list {
+    color: rgba($color: gray, $alpha: 0.5);
+    font-weight: lighter;
+    list-style-type: none;
+    text-decoration-line: none;
+    border: 1px solid rgba($color: gray, $alpha: 0.5);
+    padding: 5px;
+    border-radius: 10px;
+  }
+}

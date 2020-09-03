@@ -33,7 +33,7 @@ export const YourFeed = ({location, match}) => {
         authorization: `Token ${token}`,
       },
     });
-  }, [doFetch, currentPage]);
+  }, [doFetch, currentPage, token]);
 
   return (
     <div className='home-page'>

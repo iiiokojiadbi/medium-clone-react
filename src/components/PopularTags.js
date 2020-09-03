@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import useFetch from 'hooks/useFetch';
+import classNames from 'classnames';
 import {Loading, ErrorMessage} from 'components';
 import {Link} from 'react-router-dom';
 
@@ -7,6 +8,11 @@ import 'blocks/sidebar.scss';
 
 export const PopularTags = ({optionalClasses}) => {
   const [{response, isLoading, error}, doFetch] = useFetch('/tags');
+
+  const classesSidebar = classNames({
+    sidebar: true,
+    [optionalClasses]: optionalClasses,
+  });
 
   useEffect(() => {
     doFetch({
@@ -26,7 +32,7 @@ export const PopularTags = ({optionalClasses}) => {
   }
 
   return (
-    <div className={`sidebar ${optionalClasses}`}>
+    <div className={classesSidebar}>
       <p className='sidebar__title'>Popular tags</p>
       <div className='sidebar__list'>
         {response.tags.reverse().map((tag, index) => {
