@@ -8,6 +8,8 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'LOGOUT':
+      return {...initialState, isLoggedIn: false};
     case 'LOADING':
       return {...state, isLoading: true};
     case 'SET_AUTHORIZED':
