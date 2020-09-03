@@ -4,7 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import useFetch from 'hooks/useFetch';
 import useLocalStorage from 'hooks/useLocalStorage';
 
-import {BackendErrorMessages} from 'pages/authentication/components/BackendErrorMessages';
+import {BackendErrorMessages} from 'components';
 import {CurrentUserContext} from 'context/CurrentUserContext';
 
 import 'blocks/auth.scss';
