@@ -13,24 +13,34 @@ export default (url) => {
   }, []);
 
   useEffect(() => {
+    let skipGetResponseAfterDestroy = false;
+
     if (isLoading) {
       fetch(baseUrl + url, options)
         .then((response) =>
           response.json().then((data) => ({status: response.status, data}))
         )
         .then(({status, data}) => {
-          if (status === 200) {
-            setResponse(data);
-          } else {
-            setError(data);
+          if (!skipGetResponseAfterDestroy) {
+            if (status === 200) {
+              setResponse(data);
+            } else {
+              setError(data);
+            }
+            setIsLoading(false);
           }
-          setIsLoading(false);
         })
         .catch((err) => {
-          setError(err);
-          setIsLoading(false);
+          if (!skipGetResponseAfterDestroy) {
+            setError(err);
+            setIsLoading(false);
+          }
         });
     }
+
+    return () => {
+      skipGetResponseAfterDestroy = true;
+    };
   }, [isLoading, options, url]);
 
   return [
